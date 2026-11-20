@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@custom-variant day (&:where([data-theme="day"], [data-theme="day"] *));
+@custom-variant admin-dark (&:where([data-admin-theme="dark"], [data-admin-theme="dark"] *));
+
+@theme {
+  --color-background: 0 0% 100%;
+  --color-foreground: 222.2 84% 4.9%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 222.2 84% 4.9%;
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 222.2 84% 4.9%;
+  --color-primary: 199 89% 48%;
+  --color-primary-foreground: 210 40% 98%;
+  --color-secondary: 210 40% 96.1%;
+  --color-secondary-foreground: 222.2 47.4% 11.2%;
+  --color-muted: 210 40% 96.1%;
+  --color-muted-foreground: 215.4 16.3% 46.9%;
+  --color-accent: 210 40% 96.1%;
+  --color-accent-foreground: 222.2 47.4% 11.2%;
+  --color-destructive: 0 84.2% 60.2%;
+  --color-destructive-foreground: 210 40% 98%;
+  --color-border: 214.3 31.8% 91.4%;
+  --color-input: 214.3 31.8% 91.4%;
+  --color-ring: 199 89% 48%;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: white;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .glass {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right, #0ea5e9, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    background-color: #0ea5e9;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: #0284c7;
+    box-shadow: 0 0 40px rgba(96, 165, 250, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-secondary {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .card-premium {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid #f1f5f9;
+    padding: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s;
+  }
+
+  .card-premium:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    border-color: #e0f2fe;
+  }
+
+  .glass-dark {
+    background-color: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Unified floating glass card used across the dashboard widgets so every
+     card shares the same radius/blur/border/shadow language. */
+  .dash-glass {
+    background-color: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.35);
+  }
+
+  [data-theme="day"] .dash-glass {
+    background-color: rgba(255, 255, 255, 0.72);
+    border-color: rgba(226, 232, 240, 0.8);
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.07);
+  }
+
+  /* Admin-section glass card — light by default (the admin UI has always
+     been light-only), switches to a dark surface under [data-admin-theme="dark"]. */
+  .admin-glass {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+  }
+
+  [data-admin-theme="dark"] .admin-glass {
+    background-color: rgba(30, 41, 59, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.35);
+  }
+
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(148, 163, 184, 0.12);
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(148, 163, 184, 0.18),
+      transparent
+    );
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* Detects browser autofill (which sets input values without firing React's
+   onChange) so floating labels can still lift instead of overlapping the
+   autofilled text. The animation itself is a no-op — only the fired
+   `animationstart` event is used. */
+@keyframes onAutoFillStart {
+  from {}
+  to {}
+}
+input:-webkit-autofill {
+  animation-name: onAutoFillStart;
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
+
+@layer components {
+  .bg-twinkle {
+    animation: bg-twinkle 3s ease-in-out infinite;
+  }
+  .bg-cloud-drift {
+    animation: bg-cloud-drift linear infinite;
+  }
+  .bg-particle-drift {
+    animation: bg-particle-drift ease-in-out infinite;
+  }
+  .bg-fall {
+    animation: bg-fall linear infinite;
+  }
+  .bg-firefly-float {
+    animation: bg-firefly-float ease-in-out infinite;
+  }
+  .bg-lightning-flash {
+    animation: bg-lightning-flash 0.6s ease-out 1;
+  }
+
+  @keyframes bg-twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  @keyframes bg-cloud-drift {
+    0% { transform: translateX(-15%); }
+    100% { transform: translateX(115%); }
+  }
+  @keyframes bg-particle-drift {
+    0% { transform: translate(0, 0); opacity: 0; }
+    15% { opacity: 0.5; }
+    85% { opacity: 0.5; }
+    100% { transform: translate(8px, -48px); opacity: 0; }
+  }
+  @keyframes bg-fall {
+    0% { transform: translateY(-10%); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(115%); opacity: 0; }
+  }
+  @keyframes bg-firefly-float {
+    0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+    50% { transform: translate(10px, -14px); opacity: 0.9; }
+  }
+  @keyframes bg-lightning-flash {
+    0% { opacity: 0; }
+    8% { opacity: 0.35; }
+    16% { opacity: 0; }
+    24% { opacity: 0.2; }
+    100% { opacity: 0; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
